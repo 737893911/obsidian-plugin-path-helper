@@ -1,9 +1,0 @@
-{
-  "id": "path-to-uri",
-  "name": "Path to URI",
-  "version": "1.0.0",
-  "minAppVersion": "1.4.0",
-  "description": "Read a file path from clipboard and open it in Obsidian via obsidian:// URI.",
-  "author": "junisheng",
-  "isDesktopOnly": true
-}

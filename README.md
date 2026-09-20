@@ -23,13 +23,12 @@
 
 ### 手动安装
 
-1. 下载或克隆本项目
-2. 将 `obsidian-plugin-path-helper-0.1.8.2` 文件夹复制到你的 vault 插件目录：
+1. 从 GitHub Release 下载 `main.js` 和 `manifest.json`
+2. 在 vault 的插件目录中创建 `path-helper` 文件夹：
    ```
-   <你的vault路径>\.obsidian\plugins\obsidian-plugin-path-helper\
+   <你的vault路径>\.obsidian\plugins\path-helper\
    ```
-   （建议重命名为 `obsidian-plugin-path-helper`）
-3. 确保目录下包含 `main.js`、`manifest.json`
+3. 将下载的 `main.js`、`manifest.json` 放入该目录
 4. 打开 Obsidian → 设置 → 第三方插件 → 开启 **Path Helper**
 
 > 如果没有看到插件，请确认已关闭「安全模式」。
@@ -93,7 +92,7 @@ npm run build
 ### 仓库状态显示
 
 弹窗中每个仓库会显示：
-- **未安装** / **v0.1.x（可更新至 v0.1.8.2）** / **v0.1.8.2（最新）**
+- **未安装** / **v0.1.x（可更新至 v0.1.9）** / **v0.1.9（最新）**
 - **已启用** / **未启用**
 
 > 注意：Obsidian 1.13.7 将受限模式（安全模式）存储在内部数据库中，无法从外部文件读取或修改。同步不处理受限模式，请确保目标仓库已在 Obsidian 中手动关闭受限模式，否则插件虽已安装但不会加载。
@@ -104,9 +103,9 @@ npm run build
 
 ```
 同步完成：安装 2，更新 1，跳过 1
-• 仓库A：安装（v0.1.8.2）
-• 仓库B：更新（v0.1.8.1 → v0.1.8.2）
-• 仓库C：跳过（已是最新 v0.1.8.2）
+• 仓库A：安装（v0.1.9）
+• 仓库B：更新（v0.1.8.1 → v0.1.9）
+• 仓库C：跳过（已是最新 v0.1.9）
 ```
 
 ### 注意事项
@@ -154,7 +153,7 @@ npm run build
 ## 项目结构
 
 ```
-obsidian-plugin-path-helper-0.1.8.2/
+obsidian-plugin-path-helper/
 ├── main.ts              # 插件主入口：命令注册、设置面板、剪贴板读取、打开逻辑、同步功能
 ├── pathConverter.ts     # 路径转换核心：绝对路径 → obsidian:// URI
 ├── manifest.json        # 插件清单
@@ -193,6 +192,13 @@ npm run typecheck
 - 跨 vault 场景依赖 `obsidian://` 协议已在系统中正确注册（安装 Obsidian 时默认注册）
 - 跨 vault 的路径解析依赖本地 `obsidian.json` 注册表，仅支持已被 Obsidian 打开过的仓库
 
+## 权限与隐私
+
+- 只有在用户主动执行打开路径命令时，插件才会读取系统剪贴板中的文本
+- 为了识别跨仓库路径，插件会读取 Obsidian 的本地 `obsidian.json` 仓库注册表
+- 仅当用户在同步弹窗中勾选目标仓库并确认后，插件才会在这些仓库的 `.obsidian` 目录中复制插件文件并更新 `community-plugins.json`
+- 插件不上传数据、不使用遥测，也不向任何远程服务发送笔记、路径或剪贴板内容
+
 ## License
 
 MIT
@@ -201,7 +207,7 @@ MIT
 
 ## 更新日志
 
-### v0.1.8.2
+### v0.1.9
 
 **修复其他仓库中的插件版本检测**
 

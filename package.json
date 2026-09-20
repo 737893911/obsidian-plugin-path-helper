@@ -1,6 +1,6 @@
 {
   "name": "obsidian-path-helper",
-  "version": "0.1.5",
+  "version": "0.1.9",
   "description": "Helpers for working with file paths: open clipboard paths in Obsidian, reveal folders, and more.",
   "main": "main.js",
   "scripts": {
