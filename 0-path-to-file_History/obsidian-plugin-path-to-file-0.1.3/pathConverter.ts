@@ -16,7 +16,7 @@ export interface ConvertResult {
 /**
  * 从绝对路径转换为 Obsidian URI（用于剪贴板场景）
  *
- * @param absolutePath 文件绝对路径，如 D:\LJCdisk\folder\note.md
+ * @param absolutePath 文件绝对路径，如 D:\Vaults\folder\note.md
  * @param options 转换选项
  * @param currentVaultBasePath 当前 vault 的绝对路径（用于优先匹配）
  * @param currentVaultName 当前 vault 名称

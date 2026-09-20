@@ -9,7 +9,7 @@
     "typecheck": "tsc -noEmit -skipLibCheck"
   },
   "keywords": [],
-  "author": "LJC",
+  "author": "junisheng",
   "license": "MIT",
   "devDependencies": {
     "@types/node": "^20.11.0",

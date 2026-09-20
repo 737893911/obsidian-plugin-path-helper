@@ -4,7 +4,7 @@
 
 ## 简介
 
-当你在 Windows 资源管理器中找到一个笔记文件或文件夹，想在 Obsidian 中打开它时，你手里只有一个**绝对路径**（如 `D:\LJCdisk\笔记库\项目\笔记.md`）。Obsidian 无法直接识别这种路径，需要先转换成 `obsidian://` 协议 URI 才能跳转。
+当你在 Windows 资源管理器中找到一个笔记文件或文件夹，想在 Obsidian 中打开它时，你手里只有一个**绝对路径**（如 `D:\Vaults\笔记库\项目\笔记.md`）。Obsidian 无法直接识别这种路径，需要先转换成 `obsidian://` 协议 URI 才能跳转。
 
 本插件提供一个命令，自动完成「读取剪贴板路径 → 转换 → 打开」的全过程，无需切出 Obsidian 手动处理。未来还将扩展更多与路径相关的便捷功能。
 
@@ -257,7 +257,7 @@ Obsidian 1.13.7 将受限模式（安全模式）的状态存储在内部数据�
 
 **跨 vault 路径解析改用 obsidian.json 注册表**
 
-- 旧方案：跨 vault 时用「盘符后第一个文件夹」猜测 vault 名，仅支持 vault 直接位于盘符根目录的场景（如 `D:\MyVault\...`），嵌套 vault（如 `D:\Obsidian知识库\hehe仓库\...`）会解析错误
+- 旧方案：跨 vault 时用「盘符后第一个文件夹」猜测 vault 名，仅支持 vault 直接位于盘符根目录的场景（如 `D:\MyVault\...`），嵌套 vault（如 `D:\Vaults\my-vault\...`）会解析错误
 - 新方案：读取 Obsidian 本地注册表 `%APPDATA%\obsidian\obsidian.json`，获取所有已注册 vault 的绝对路径，通过**最长前缀匹配**确定文件所属的 vault
 - 优势：无论 vault 嵌套多深都能正确识别；不再依赖启发式猜测
 - 注意：仅支持已在 Obsidian 中打开过的仓库（obsidian.json 中有记录的）

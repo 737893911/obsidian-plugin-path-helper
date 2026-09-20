@@ -18,7 +18,7 @@ export interface ConvertResult {
  *
  * 通过与已注册的 vault 绝对路径列表做最长前缀匹配，确定文件所属的 vault。
  *
- * @param absolutePath 文件绝对路径，如 D:\Obsidian知识库\hehe仓库\笔记.md
+ * @param absolutePath 文件绝对路径，如 D:\Vaults\my-vault\笔记.md
  * @param options 转换选项
  * @param vaultPaths 所有已注册 vault 的绝对路径列表（来自 obsidian.json）
  * @returns 转换结果，无法解析时返回 null

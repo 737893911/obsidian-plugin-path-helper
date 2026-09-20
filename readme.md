@@ -8,7 +8,7 @@
 
 ## 为什么需要这个插件？
 
-当你在 Windows 资源管理器中找到一个笔记文件或文件夹，想在 Obsidian 中打开它时，你手里只有一个**绝对路径**（如 `D:\Obsidian知识库\项目\笔记.md`）。Obsidian 无法直接识别这种路径，需要先转换成 `obsidian://` 协议 URI 才能跳转。
+当你在 Windows 资源管理器中找到一个笔记文件或文件夹，想在 Obsidian 中打开它时，你手里只有一个**绝对路径**（如 `D:\Vaults\project\note.md`）。Obsidian 无法直接识别这种路径，需要先转换成 `obsidian://` 协议 URI 才能跳转。
 
 **Path Helper** 自动完成「读取剪贴板路径 → 智能匹配仓库 → 转换 → 打开」的全过程，无需手动处理。
 
