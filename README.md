@@ -2,6 +2,21 @@
 
 > 在 Obsidian 中一键处理文件路径：打开剪贴板里的文件/文件夹绝对路径、定位文件夹、打开同名文件夹笔记等。
 
+## English
+
+Path Helper opens files and folders from absolute paths copied to the clipboard. It can locate content in the current vault or another registered vault and reveal the destination in the file explorer.
+
+### Features
+
+- Open copied absolute file and folder paths
+- Resolve paths across registered vaults
+- Reveal opened files and folders in the file explorer
+- Optionally open matching folder notes
+- Synchronize and enable Path Helper across selected vaults
+- Preserve each target vault's plugin settings during synchronization
+
+Path Helper is desktop-only because it uses Electron and Node.js APIs for clipboard access, local vault discovery, and file synchronization. It does not send notes, paths, or clipboard contents to remote services.
+
 ## 简介
 
 当你在 Windows 资源管理器中找到一个笔记文件或文件夹，想在 Obsidian 中打开它时，你手里只有一个**绝对路径**（如 `D:\Vaults\笔记库\项目\笔记.md`）。Obsidian 无法直接识别这种路径，需要先转换成 `obsidian://` 协议 URI 才能跳转。
@@ -92,7 +107,7 @@ npm run build
 ### 仓库状态显示
 
 弹窗中每个仓库会显示：
-- **未安装** / **v0.1.x（可更新至 v0.1.9）** / **v0.1.9（最新）**
+- **未安装** / **v0.1.x（可更新至 v0.1.10）** / **v0.1.10（最新）**
 - **已启用** / **未启用**
 
 > 注意：Obsidian 1.13.7 将受限模式（安全模式）存储在内部数据库中，无法从外部文件读取或修改。同步不处理受限模式，请确保目标仓库已在 Obsidian 中手动关闭受限模式，否则插件虽已安装但不会加载。
@@ -103,9 +118,9 @@ npm run build
 
 ```
 同步完成：安装 2，更新 1，跳过 1
-• 仓库A：安装（v0.1.9）
-• 仓库B：更新（v0.1.8.1 → v0.1.9）
-• 仓库C：跳过（已是最新 v0.1.9）
+• 仓库A：安装（v0.1.10）
+• 仓库B：更新（v0.1.9 → v0.1.10）
+• 仓库C：跳过（已是最新 v0.1.10）
 ```
 
 ### 注意事项
@@ -206,6 +221,15 @@ MIT
 ---
 
 ## 更新日志
+
+### v0.1.10
+
+**Obsidian Community 审核兼容性修复**
+
+- 调整 manifest 描述，符合社区目录文案要求
+- 将直接样式赋值改为 Obsidian `setCssProps` API
+- 设置页标题改用 `Setting.setHeading()`
+- README 新增英文功能概述与隐私说明
 
 ### v0.1.9
 

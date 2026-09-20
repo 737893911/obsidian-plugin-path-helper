@@ -648,10 +648,12 @@ export default class PathHelperPlugin extends Plugin {
 		notice.noticeEl.empty();
 		notice.noticeEl.createEl('div', { text: summary });
 		const detailEl = notice.noticeEl.createEl('div', { text: detailLines });
-		detailEl.style.whiteSpace = 'pre-wrap';
-		detailEl.style.fontSize = '12px';
-		detailEl.style.marginTop = '6px';
-		detailEl.style.opacity = '0.85';
+		detailEl.setCssProps({
+			'white-space': 'pre-wrap',
+			'font-size': '12px',
+			'margin-top': '6px',
+			opacity: '0.85',
+		});
 
 		// 同时输出到控制台便于排查
 		console.log('[Path Helper] sync result:\n' + summary + '\n' + detailLines);
@@ -715,7 +717,9 @@ class PathHelperSettingTab extends PluginSettingTab {
 		const { containerEl } = this;
 		containerEl.empty();
 
-		containerEl.createEl('h2', { text: 'Path Helper 设置' });
+		new Setting(containerEl)
+			.setName('Path Helper 设置')
+			.setHeading();
 
 		new Setting(containerEl)
 			.setName('URL-encode spaces')
@@ -930,7 +934,7 @@ class SyncToAllVaultsModal extends Modal {
 			// 让描述中的换行生效
 			const descEl = contentEl.querySelector('.setting-item-description:last-of-type') as HTMLElement | null;
 			if (descEl) {
-				descEl.style.whiteSpace = 'pre-wrap';
+				descEl.setCssProps({ 'white-space': 'pre-wrap' });
 			}
 		});
 

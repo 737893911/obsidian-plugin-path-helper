@@ -1,7 +1,7 @@
 {
   "name": "obsidian-path-helper",
-  "version": "0.1.9",
-  "description": "Helpers for working with file paths: open clipboard paths in Obsidian, reveal folders, and more.",
+  "version": "0.1.10",
+  "description": "Open clipboard paths, reveal files and folders, and synchronize the plugin across vaults.",
   "main": "main.js",
   "scripts": {
     "dev": "node esbuild.config.mjs",
