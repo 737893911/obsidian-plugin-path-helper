@@ -1,0 +1,9 @@
+{
+  "id": "path-helper",
+  "name": "Path Helper",
+  "version": "0.1.8.2",
+  "minAppVersion": "1.4.0",
+  "description": "Helpers for working with file paths: open clipboard paths in Obsidian, reveal folders, and more.",
+  "author": "junisheng",
+  "isDesktopOnly": true
+}
