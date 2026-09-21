@@ -1,9 +1,9 @@
 {
   "id": "path-helper",
   "name": "Path Helper",
-  "version": "0.1.10",
+  "version": "0.1.11",
   "minAppVersion": "1.4.0",
-  "description": "Open clipboard paths, reveal files and folders, and synchronize the plugin across vaults.",
+  "description": "Opens clipboard paths, reveals files and folders, and supports installation and updates across vaults.",
   "author": "junisheng",
   "isDesktopOnly": true
 }

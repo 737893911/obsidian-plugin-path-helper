@@ -139,8 +139,6 @@ export default class PathHelperPlugin extends Plugin {
 		}
 
 		const currentVaultPath = this.getVaultBasePath();
-		const currentVaultName = this.app.vault.getName();
-
 		// 统一分隔符，便于路径比较
 		const normalizedPath = rawPath.trim().replace(/\\/g, '/').replace(/^["']|["']$/g, '');
 		const normalizedVaultBase = currentVaultPath.replace(/\\/g, '/').replace(/\/$/, '');
@@ -179,7 +177,7 @@ export default class PathHelperPlugin extends Plugin {
 		} else if (file instanceof TFolder) {
 			// 文件夹：根据设置选择行为
 			if (this.settings.openFolderNote) {
-				this.openFolderNote(file, relativePath);
+				await this.openFolderNote(file, relativePath);
 			} else {
 				this.revealFolderInExplorer(file, relativePath);
 			}
@@ -233,7 +231,7 @@ export default class PathHelperPlugin extends Plugin {
 				if (this.settings.showNotification) {
 					new Notice('已定位到文件夹：' + displayPath);
 				}
-			} catch (e) {
+			} catch {
 				// revealInFolder 失败时，fallback 到 URI 方式
 				this.fallbackOpenFolderViaUri(displayPath);
 			}
@@ -459,13 +457,12 @@ export default class PathHelperPlugin extends Plugin {
 		};
 
 		const vaultBase = this.getVaultBasePath();
-		const configDir = (this.app.vault as any).configDir || '.obsidian';
+		const configDir = this.app.vault.configDir;
 
 		// 策略1：标准位置 <vault>/<configDir>/plugins/<id>
 		const stdDir = path.join(vaultBase, configDir, 'plugins', pluginId);
 		const stdHit = tryDir(stdDir);
 		if (stdHit) {
-			console.log('[Path Helper] 源目录策略1(标准位置):', stdHit);
 			return stdHit;
 		}
 
@@ -485,7 +482,6 @@ export default class PathHelperPlugin extends Plugin {
 							if (m.id === pluginId) {
 								const hit = tryDir(candidateDir);
 								if (hit) {
-									console.log('[Path Helper] 源目录策略2(扫描匹配):', hit);
 									return hit;
 								}
 							}
@@ -495,7 +491,6 @@ export default class PathHelperPlugin extends Plugin {
 			}
 		} catch { /* ignore */ }
 
-		console.warn('[Path Helper] 未找到插件源目录，标准位置:', stdDir);
 		// 兜底：返回标准位置（后续会因文件缺失而报错，提示用户）
 		return stdDir;
 	}
@@ -644,19 +639,14 @@ export default class PathHelperPlugin extends Plugin {
 
 		const summary = `同步完成：${summaryParts.join('，')}`;
 
-		const notice = new Notice('', 15000);
-		notice.noticeEl.empty();
-		notice.noticeEl.createEl('div', { text: summary });
-		const detailEl = notice.noticeEl.createEl('div', { text: detailLines });
-		detailEl.setCssProps({
-			'white-space': 'pre-wrap',
-			'font-size': '12px',
-			'margin-top': '6px',
-			opacity: '0.85',
+		const message = createFragment((fragment) => {
+			fragment.createDiv({ text: summary });
+			fragment.createDiv({
+				text: detailLines,
+				cls: 'path-helper-sync-details',
+			});
 		});
-
-		// 同时输出到控制台便于排查
-		console.log('[Path Helper] sync result:\n' + summary + '\n' + detailLines);
+		new Notice(message, 15000);
 	}
 
 	/**
@@ -716,10 +706,6 @@ class PathHelperSettingTab extends PluginSettingTab {
 	display(): void {
 		const { containerEl } = this;
 		containerEl.empty();
-
-		new Setting(containerEl)
-			.setName('Path Helper 设置')
-			.setHeading();
 
 		new Setting(containerEl)
 			.setName('URL-encode spaces')
@@ -782,6 +768,10 @@ class PathHelperSettingTab extends PluginSettingTab {
 						await this.plugin.saveSettings();
 					})
 			);
+
+		new Setting(containerEl)
+			.setName('仓库同步')
+			.setHeading();
 
 		new Setting(containerEl)
 			.setName('Sync to all vaults')
@@ -919,7 +909,7 @@ class SyncToAllVaultsModal extends Modal {
 				statusParts.push(info.enabled ? '已启用' : '未启用');
 			}
 
-			new Setting(contentEl)
+			const vaultSetting = new Setting(contentEl)
 				.setName(vaultName)
 				.setDesc(vaultPath + '\n' + statusParts.join('　'))
 				.addToggle((toggle) =>
@@ -932,10 +922,7 @@ class SyncToAllVaultsModal extends Modal {
 				);
 
 			// 让描述中的换行生效
-			const descEl = contentEl.querySelector('.setting-item-description:last-of-type') as HTMLElement | null;
-			if (descEl) {
-				descEl.setCssProps({ 'white-space': 'pre-wrap' });
-			}
+			vaultSetting.descEl.addClass('path-helper-vault-description');
 		});
 
 		// 确认按钮
